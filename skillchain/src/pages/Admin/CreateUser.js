@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import {
   Button,
   Card,
@@ -211,4 +211,4 @@ class CreateUser extends Component {
   }
 }
 
-export default withRouter(CreateUser);
+export default Router(CreateUser);

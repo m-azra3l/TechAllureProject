@@ -6,7 +6,7 @@ import OrgEndCard from "../../components/OrgEndCard";
 import EmployeeCard from "../../components/EmployeeCard";
 import "./GetOrg.css";
 import LoadComp from "../../components/LoadComp";
-import { withRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 
 class GetOrg extends Component {
   state = {
@@ -86,4 +86,4 @@ class GetOrg extends Component {
   }
 }
 
-export default withRouter(GetOrg);
+export default Router(GetOrg);

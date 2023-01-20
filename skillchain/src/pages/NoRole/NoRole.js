@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { Button, Card, Dropdown, Form, Message } from "semantic-ui-react";
 import "./NoRole.css";
 import { messageAdmin } from "../../firebase/api.js";
@@ -158,4 +158,4 @@ class NoRole extends Component {
   }
 }
 
-export default withRouter(NoRole);
+export default Router(NoRole);

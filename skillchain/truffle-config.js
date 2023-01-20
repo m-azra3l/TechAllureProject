@@ -1,5 +1,5 @@
 require("babel-register");
-require("babel-polyfill");
+require("@babel/polyfill");
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const { SEED_PHRASE, INFURA_KEY } = require("./seed-phrase");
