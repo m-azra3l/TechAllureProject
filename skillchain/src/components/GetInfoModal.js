@@ -4,7 +4,7 @@ import "./Modals.css";
 import Admin from "../abis/Admin.json";
 import Employee from "../abis/Employee.json";
 import { toast } from "react-toastify";
-import { withRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 
 class GetInfoModal extends Component {
   state = {
@@ -335,4 +335,4 @@ class GetInfoModal extends Component {
   }
 }
 
-export default withRouter(GetInfoModal);
+export default Router(GetInfoModal);

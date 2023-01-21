@@ -3,7 +3,7 @@ import Employee from "../abis/Employee.json";
 import Admin from "../abis/Admin.json";
 import { toast } from "react-toastify";
 import { Dimmer, Loader } from "semantic-ui-react";
-import { withRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 
 class SearchEmp extends Component {
   state = {
@@ -75,4 +75,4 @@ class SearchEmp extends Component {
   }
 }
 
-export default withRouter(SearchEmp);
+export default Router(SearchEmp);
