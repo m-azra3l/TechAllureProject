@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./Modals.css";
-import {QrReader} from "react-qr-reader";
+import QrReader from "react-qr-reader";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 
 function ScanQR(props) {

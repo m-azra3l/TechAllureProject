@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Menu, Segment, Image, Label, Icon } from "semantic-ui-react";
 import Admin from "../abis/Admin.json";
@@ -234,4 +234,4 @@ class Navbar extends Component {
   }
 }
 
-export default Router(Navbar);
+export default withRouter(Navbar);
