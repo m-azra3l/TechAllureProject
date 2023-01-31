@@ -5,7 +5,7 @@ import Admin from "./abis/Admin.json";
 import "react-toastify/dist/ReactToastify.css";
 import MetaMaskGuide from "./MetaMaskGuide";
 import { Container } from "semantic-ui-react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AdminPageCreate from "./pages/Admin/CreateUser";
 import AllEmployees from "./pages/Admin/AllEmployees";
 import AllOrganizationEndorser from "./pages/Admin/AllOrganizationEndorser";
@@ -81,7 +81,7 @@ function App() {
 
   const adminRoutes = () => {
     return (
-      <Routes>
+      <Switch>
         <Route path="/" exact component={AllEmployees} />
         <Route
           path="/all-organization-endorser"
@@ -90,37 +90,37 @@ function App() {
         />
         <Route path="/create-user" exact component={AdminPageCreate} />
         <Route path="/notifications" exact component={NotificationsAdmin} />
-      </Routes>
+      </Switch>
     );
   };
 
   const employeeRoutes = () => {
     return (
-      <Routes>
+      <Switch>
         <Route path="/" exact component={EmployeePage} />
         <Route path="/update-profile" exact component={UpdateProfile} />
         <Route path="/notifications" exact component={NotificationsEmployee} />
-      </Routes>
+      </Switch>
     );
   };
 
   const isOrganizationEndorserRoutes = () => {
     return (
-      <Routes>
+      <Switch>
         <Route path="/" exact component={Organization} />
         <Route path="/endorse-skill" exact component={EndorseSkill} />
         <Route path="/endorse-section" exact component={Endorse} />
         <Route path="/notifications" exact component={NotificationsOrg} />
-      </Routes>
+      </Switch>
     );
   };
 
   const noRoleRoutes = () => {
     return (
-      <Routes>
+      <Switch>
         <Route path="/" exact component={NoRole} />
         <Route path="/notifications" exact component={Notifications} />
-      </Routes>
+      </Switch>
     );
   };
 
@@ -140,7 +140,7 @@ function App() {
           <Navbar />
           <Container>
             <ToastContainer />
-            <Routes>
+            <Switch>
               <Route
                 path="/getemployee/:employee_address"
                 exact
@@ -148,7 +148,7 @@ function App() {
               />
               <Route path="/getOrg/:orgAddress" exact component={GetOrg} />
               {renderRoutes()}
-            </Routes>
+            </Switch>
           </Container>
         </BrowserRouter>
       ) : (

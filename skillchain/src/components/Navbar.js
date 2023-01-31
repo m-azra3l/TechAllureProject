@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Router } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Menu, Segment, Image, Label, Icon } from "semantic-ui-react";
 import Admin from "../abis/Admin.json";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import GenererateQR from "./GenererateQR";
+import Logo from "../images/webclip.PNG";
 
 class Navbar extends Component {
   state = { activeItem: "home", role: -1, account: "", showQr: false };
@@ -90,7 +91,7 @@ class Navbar extends Component {
                   marginBottom: "-5px",
                 }}
               >
-                <Image src="https://static.thenounproject.com/png/3293529-200.png" />
+                <Image src={Logo} />
               </div>
             </Menu.Item>
             <Menu.Item
@@ -234,4 +235,4 @@ class Navbar extends Component {
   }
 }
 
-export default Router(Navbar);
+export default withRouter(Navbar);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Card } from "semantic-ui-react";
 import Employee from "../abis/Employee.json";
 import "./EmployeeCard.css";
@@ -317,4 +317,4 @@ class EmployeeCard extends Component {
   }
 }
 
-export default Router(EmployeeCard);
+export default withRouter(EmployeeCard);

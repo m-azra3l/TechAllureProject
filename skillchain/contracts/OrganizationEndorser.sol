@@ -1,5 +1,9 @@
-pragma solidity >=0.5.0 <0.9.0;
+// SPDX-License-Identifier: GPL-3.0 License
 
+// Solidity version declaration
+pragma solidity ^0.8.13;
+
+// Declaring the contract
 contract OrganizationEndorser {
   address admin;
   string name;

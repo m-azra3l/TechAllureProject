@@ -1,9 +1,14 @@
-pragma solidity >=0.5.0 <0.9.0;
+// SPDX-License-Identifier: GPL-3.0 License
 
+// Solidity version declaration
+pragma solidity ^0.8.13;
+
+// Declaring the contract
 contract Skills {
   mapping(string => address[]) skillmap;
   string[] skill;
 
+  // Function to add skill by an employee
   function addEmployeeToSkill(string memory _name, address _employee) public {
     if (skillmap[_name].length == 0) {
       skill.push(_name);

@@ -1,3 +1,5 @@
+var artifacts 
+
 const Admin = artifacts.require("Admin");
 const Skills = artifacts.require("Skills");
 
