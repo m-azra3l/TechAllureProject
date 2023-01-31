@@ -98,6 +98,12 @@ class Navbar extends Component {
               style={{ marginRight: "25px", padding: "0px" }}
               position="left"
             >
+              <h2>SkillChain</h2>
+            </Menu.Item>
+            <Menu.Item
+              style={{ marginRight: "25px", padding: "0px" }}
+              position="left"
+            >
               <SearchBar />
             </Menu.Item>
             {this.state.role === 0 && (
