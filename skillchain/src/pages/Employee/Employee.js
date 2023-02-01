@@ -25,7 +25,7 @@ export default class EmployeePage extends Component {
   };
 
   componentDidMount = async () => {
-    this.setState({ loadcomp: true });
+    //this.setState({ loadcomp: true });
     const web3 = window.web3;
     const networkId = await web3.eth.net.getId();
     const AdminData = await Admin.networks[networkId];
