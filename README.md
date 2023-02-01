@@ -6,9 +6,17 @@ A skill verification system built on blockchain technology can shorten the time 
 
 ## Project Snapshot
 
+![Screenshot (134)](https://user-images.githubusercontent.com/26850963/215898412-f0b91345-9b2d-4df8-a96c-7893ba9621dd.png)
+![Screenshot (135)](https://user-images.githubusercontent.com/26850963/215898419-dcac43b2-49f3-4d48-a92a-c4432ec8fcc2.png)
+![Screenshot (136)](https://user-images.githubusercontent.com/26850963/215898425-e2da43b9-033d-48cc-83b4-66a9f0ce1faa.png)
+![Screenshot (137)](https://user-images.githubusercontent.com/26850963/215898431-dc5e061a-d155-424c-a941-e8f3379584c5.png)
+![Screenshot (138)](https://user-images.githubusercontent.com/26850963/215898437-9c908372-1405-45e8-b29e-3f246ed8df47.png)
+![Screenshot (139)](https://user-images.githubusercontent.com/26850963/215898442-3b9e9029-6e92-483d-a648-cc45b13f373c.png)
+![Screenshot (140)](https://user-images.githubusercontent.com/26850963/215898448-919542ad-276d-4db0-ad2c-a34586b02c34.png)
+
 ## Project Website Link
 
-Live website link: [SkillChain](https://skillchain.vercel.app/)
+Live website link: [SkillChain](https://skillchain-m-azra3l.vercel.app/)
 
 ## How to Install and Run the Project
 
@@ -193,7 +201,7 @@ npx truffle test
 
 ### Deploy Client App on Vercel
 
-The easiest way to deploy your React.js app is to use the [Vercel Platform](https://vercel.com/).
+This project was deployed to Vercel platform(https://vercel.com/).
 
 ## Team Members
 
