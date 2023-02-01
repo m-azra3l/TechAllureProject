@@ -201,7 +201,7 @@ npx truffle test
 
 ### Deploy Client App on Vercel
 
-The easiest way to deploy your React.js app is to use the [Vercel Platform](https://vercel.com/).
+This project was deployed to Vercel platform(https://vercel.com/).
 
 ## Team Members
 
