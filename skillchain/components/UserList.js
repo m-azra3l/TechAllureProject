@@ -18,8 +18,8 @@ export default function UserList (){
     const [users, setUsers] = useState([]);
 
     async function fetchUsers() {
-      //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-      const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+      const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+      //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
       const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
       const numUsers = await contract.getNumberOfUsers();
     

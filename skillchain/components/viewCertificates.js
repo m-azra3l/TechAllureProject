@@ -25,7 +25,8 @@ export default function ViewCertificates () {
     const getCertificates = useCallback(async () => {
       try {
         // Connect to the network
-        const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+        //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
     
         // Load the contract        
         const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
