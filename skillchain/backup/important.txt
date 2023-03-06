@@ -1,0 +1,28 @@
+//create structure for certificate
+    struct certificate {
+        string metaurl;
+        //string issue_date;
+       // string valid_till;
+        //string name;
+        uint256 id;
+        //string issuer;
+    }
+
+    //create structure for verification
+    struct verification {
+        uint256 verifier_id;        
+        string metaurl;
+        //string date;
+        //string comment;
+    }
+
+    //create structure for experience
+    struct experience {
+        uint256 organization_id;
+        string metaurl;
+        //string starting_date;
+        //string ending_date;
+        //string role;
+        bool currently_working;
+        bool is_approved;
+    }
