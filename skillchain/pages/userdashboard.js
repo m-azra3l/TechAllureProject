@@ -43,7 +43,7 @@ export default function UserDashBoard(){
             <header className='bg-gray-800 shadow'style={{marginTop:'70px'}}>
               <div className='max-w-9xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
                 <h1 className='text-3xl font-bold text-white'>
-                  DashBoard
+                  DashBoard: &nbsp;{items.find((item) => item.id === active).name}
                 </h1>
                 <div className='flex'>
                   <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Users</Link>
@@ -70,9 +70,6 @@ export default function UserDashBoard(){
                 <div className='border-4 border-solid border-gray-200 rounded-lg h-2/6 mx-5 mt-0 mb-1'>
                   <UserProfile/>
                 </div>
-                {/* <h1 className='text-xl font-bold text-white'>
-                  {items.find((item) => item.id === active).name}
-                </h1> */}
                 <div className='border-4 border-solid border-gray-200 rounded-lg h-4/6 mx-5 mt-2'>
                   {ActiveItem()}
                 </div>

@@ -54,7 +54,7 @@ export default function Profile(){
         <header className='bg-gray-800 shadow'style={{marginTop:'70px'}}>
           <div className='max-w-9xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
             <h1 className='text-3xl font-bold text-white'>
-              User Profile
+              User Profile: &nbsp;{items.find((item) => item.id === active)?.name || ''}
             </h1>
             <div className='flex'>
               <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Users</Link>
@@ -80,10 +80,7 @@ export default function Profile(){
           <main className='w-3/4 lg:px-8 sm:px-6 mx-auto inline-block float-right h-full '>
             <div className='border-4 border-solid border-gray-200 rounded-lg h-2/6 mx-5 mt-0 mb-1'>
               <ViewUserProfile/>
-            </div>
-            {/* <h1 className='text-xl font-bold text-white'>
-              {items.find((item) => item.id === active)?.name || ''}
-            </h1> */}
+            </div>            
             <div className='border-4 border-solid border-gray-200 rounded-lg h-4/6 mx-5 mt-2'>
               {ActiveItem()}
             </div>
