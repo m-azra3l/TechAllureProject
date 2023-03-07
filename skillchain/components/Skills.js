@@ -159,9 +159,8 @@ export default function Skills (){
           </sidebar>
           <main className='w-3/4 px-0 sm:py-6 sm:px-0 inline-block float-right mt-0'>
             <h1 className='text-lg font-bold text-white'>
-              {skills.find((item) => item.id === active)?.name || ''}
+              &nbsp;&nbsp;&nbsp;{skills.find((item) => item.id === active)?.name || ''}
             </h1>
-            <br/>
             {ActiveItem()}
           </main>
         </div>
