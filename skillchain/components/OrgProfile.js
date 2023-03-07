@@ -147,25 +147,26 @@ export default function OrgProfile (){
             <p className='text-md text-white'>Id: {orgData.id} | {orgData.location}</p>
               <p className='text-white text-md'>
                 {orgData.current_employees} Current Employees |&nbsp; 
-                {orgData.previous_employees} Previous Employees &nbsp;
-                  <button
-                  className={
-                    'bg-green-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-                  }
-                  type='button'
-                  onClick={() => setShowModal(true)}>
-                  Add Employee
-                </button>
-                &nbsp;
+                {orgData.previous_employees} Previous Employees 
+                <br/>
                 <button
-                  className={
-                    'bg-blue-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-                  }
-                  type='button'
-                  onClick={() => setShowForm(true)}>
-                  Update Wallet Address
-                </button>
-              </p>            
+                className={
+                  'bg-green-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                }
+                type='button'
+                onClick={() => setShowModal(true)}>
+                Add Employee
+              </button>
+              &nbsp;
+              <button
+                className={
+                  'bg-blue-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                }
+                type='button'
+                onClick={() => setShowForm(true)}>
+                Update Wallet Address
+              </button>
+            </p>            
           </div>
           <div className='w-2/6 h-full flex flex-row justify-end'>
             <div className='border-black w-36 h-36 border-solid rounded-full bg-gray-500'>
@@ -262,8 +263,7 @@ export default function OrgProfile (){
                     {/*body*/}
                     <div className='relative p-6 flex-auto my-4 text-white bg-gray-800 text-lg leading-relaxed'>
                       <form className='mx-auto bg-gray-800'>
-                        <label className='px-1'>Email:</label> 
-                        <br/>   
+                        <label className='px-1'>Email:</label> &nbsp;
                         <input
                           className='border-solid border-black px-2'
                           type='text'
@@ -271,8 +271,8 @@ export default function OrgProfile (){
                           onChange={(e) => {
                             setEmail(e.target.value);
                           }}></input>
-                        <label className='px-1'>New Wallet Address:</label> 
-                        <br/>   
+                          <br/>
+                        <label className='px-1'>New Wallet Address:</label>&nbsp;
                         <input
                           className='border-solid border-black px-2'
                           type='text'

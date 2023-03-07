@@ -163,11 +163,9 @@ export default function UserProfile (){
           <div className='w-4/6 h-full'>
             <p className='text-lg text-white'>{userData.name}</p>
             <p className='text-lg text-white'>Id: {userData.id}</p>
-            <p className='text-md text-white'>{userData.orgname} | {userData.position} | {userData.location} 
-              <br/>
-              <br/>
+            <p className='text-md text-white'>{userData.orgname} | {userData.position} | {userData.location} </p> 
+            <p>
               {userData.manager ? (
-                <p>
                   <button
                     className={
                       'bg-green-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
@@ -175,10 +173,9 @@ export default function UserProfile (){
                     type='button'
                     onClick={() => setShowModal(true)}>
                     Endorse Employee Skill
-                  </button>&nbsp;
-                </p>
+                  </button>
                 ) : (<></>)}
-                
+                &nbsp;
                 <button
                   className={
                     'bg-blue-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
@@ -298,8 +295,7 @@ export default function UserProfile (){
                     {/*body*/}
                     <div className='relative p-6 flex-auto my-4 text-white bg-gray-800 text-lg leading-relaxed'>
                       <form className='mx-auto bg-gray-800'>
-                        <label className='px-1'>Email:</label> 
-                        <br/>   
+                        <label className='px-1'>Email:</label> &nbsp;
                         <input
                           className='border-solid border-black px-2'
                           type='text'
@@ -307,8 +303,8 @@ export default function UserProfile (){
                           onChange={(e) => {
                             setEmail(e.target.value);
                           }}></input>
-                        <label className='px-1'>New Wallet Address:</label> 
-                        <br/>   
+                          <br/>
+                        <label className='px-1'>New Wallet Address:</label>&nbsp;
                         <input
                           className='border-solid border-black px-2'
                           type='text'
