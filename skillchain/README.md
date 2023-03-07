@@ -8,7 +8,7 @@ A skill verification system built on blockchain technology can shorten the time 
 
 ## Project Website Link
 
-Live website link: [SkillChain](https://skillchain-m-azra3l.vercel.app/)
+Live website link: [SkillChain](https://tech-allure-project-m-azra3l.vercel.app/)
 
 ## Project Reference
 
