@@ -82,9 +82,9 @@ export default function ViewCertificates () {
       return (
         <div className='p-6 m-2 flex flex-row justify-between items-center bg-gray-800 border-solid rounded-lg '>
           <h1 className="text-lg font-semibold text-white inline">
-            Skill: {info.skill}
-            <br/>
             Certificate: {info.name}
+            <br/>
+            Skill: {info.skill}  
           </h1>
           <br/>
           <p className='font-medium text-md text-white inline'>

@@ -26,6 +26,7 @@ const client = ipfsHttpClient({
 
 export default function UserProfile (){
     const [showModal, setShowModal] = useState(false);
+    const [showForm, setShowForm] = useState(false);
     const router = useRouter();
     const { id } = router.query;
     const [userData, setUserData] = useState([]);
@@ -33,6 +34,8 @@ export default function UserProfile (){
     const [employeeId, setEmployeeId] = useState('');    
     const [skillId, setSkillId] = useState('');
     const [comment, setComment] = useState('');
+    const [email, setEmail] = useState('');
+    const [walletAdd, setWalletAdd] = useState('');
     const [date, setDate] = useState(new Date().toLocaleDateString('en-GB')); // initialize date to current date in YYYY-MM-DD format
 
     useEffect(() => {
@@ -112,32 +115,47 @@ export default function UserProfile (){
     }
 
     // Function to add an employee to an organization
-    const endorseSkill = async (e) => {
+    const endorseSkill = async (e) => {      
+      setShowModal(false);
         try {
             if(id !== employeeId){
               e.preventDefault();
               const metaurl = await uploadToIPFS();
               const tx = await contract.verify_skill(employeeId, skillId, metaurl);
               await tx.wait();
-              setShowModal(false);
               alert('Skill endorsed successfully!');
             }
             else{
-              alert("Endorser cannot endorse their own skill");  
-              setShowModal(false);        
+              alert("Endorser cannot endorse their own skill");       
             }
         } 
         catch (error) {
           if (error.message.includes("Endorser cannot endorse their own skill")) {
             alert("Endorser cannot endorse their own skill");
-            setShowModal(false);
           }
           else{
             console.log(error);
             alert('Error endorsing employee');
-            setShowModal(false);
           } 
         }
+    };
+
+    const handleWalletUpdate = async (e) => {
+      setShowForm(false);
+      try {
+        if(id)
+        {
+          e.preventDefault();
+          const tx = await contract.update_wallet_address(email, walletAdd);
+          await tx.wait();
+          alert('Wallet address updated successfully, switch to the wallet address');
+          loadData();
+        }
+      } 
+      catch (error) {
+        console.log(error);
+        alert('Error! Failed to update wallet address');
+      }
     };
 
     return (
@@ -149,14 +167,26 @@ export default function UserProfile (){
               <br/>
               <br/>
               {userData.manager ? (
+                <p>
+                  <button
+                    className={
+                      'bg-green-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                    }
+                    type='button'
+                    onClick={() => setShowModal(true)}>
+                    Endorse Employee Skill
+                  </button>&nbsp;
+                </p>
+                ) : (<></>)}
+                
                 <button
                   className={
-                    'bg-green-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                    'bg-blue-800 inline text-white active:bg-red-800 font-bold text-sm px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                   }
                   type='button'
-                  onClick={() => setShowModal(true)}>
-                  Endorse Employee Skill
-                </button>) : (<></>)}    
+                  onClick={() => setShowForm(true)}>
+                  Update Wallet Address
+                </button>    
             </p>
           </div>
           <div className='w-2/6 h-full flex flex-row justify-end'>
@@ -235,6 +265,72 @@ export default function UserProfile (){
                         type='button'
                         onClick={endorseSkill}>
                         Endorse
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='opacity-25 fixed inset-0 z-40 bg-black'></div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {showForm ? (
+            <div>
+              {' '}
+              <div className='justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'>
+                <div className='relative w-auto my-6 mx-auto max-w-3xl'>
+                  {/*content*/}
+                  <div className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
+                    {/*header*/}
+                    <div className='flex items-start justify-between p-5 border-b bg-gray-800 border-solid border-blueGray-200 rounded-t'>
+                      <h4 className='text-3xl font-semibold text-white text-center'>
+                        Change Wallet Address
+                      </h4>
+                      <button
+                        className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
+                        onClick={() => setShowForm(false)}>
+                        <span className='bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none'>
+                          ×
+                        </span>
+                      </button>
+                    </div>
+                    {/*body*/}
+                    <div className='relative p-6 flex-auto my-4 text-white bg-gray-800 text-lg leading-relaxed'>
+                      <form className='mx-auto bg-gray-800'>
+                        <label className='px-1'>Email:</label> 
+                        <br/>   
+                        <input
+                          className='border-solid border-black px-2'
+                          type='text'
+                          required
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}></input>
+                        <label className='px-1'>New Wallet Address:</label> 
+                        <br/>   
+                        <input
+                          className='border-solid border-black px-2'
+                          type='text'
+                          required
+                          onChange={(e) => {
+                            setWalletAdd(e.target.value);
+                          }}></input>
+                      </form>
+                    </div>
+                    {/*footer*/}
+                    <div className='flex items-center justify-end p-6 bg-gray-800 border-t border-solid border-blueGray-200 rounded-b'>
+                      <button
+                        className='text-white background-transparent font-bold uppercase text-sm px-6 py-3 bg-red-800 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                        type='button'
+                        onClick={() => setShowForm(false)}>
+                        Close
+                      </button>
+                      <button
+                        className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                        type='button'
+                        onClick={handleWalletUpdate}>
+                        Update
                       </button>
                     </div>
                   </div>

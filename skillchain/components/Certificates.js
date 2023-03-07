@@ -105,33 +105,34 @@ export default function Certificates () {
         }  
     },[formInput])
 
-    const addCertificate = useCallback(async () => {
-        if (certificates.some((cert) => cert.name === formInput.name))
-          alert('Error! Certificate with this name exists, add another certificate!');
-        else {
-            setShowModal(false);
-            try {
-              const web3Modal = new Web3Modal();
-              const connection = await web3Modal.connect();
-              const provider = new ethers.providers.Web3Provider(connection);
-              const signer = provider.getSigner();
-              const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
-              const skillids = await contract.skills_of_individual(id);
-              if(skillids.length > 0) {
-                  const metaurl = await uploadToIPFS();
-                  const tx = await contract.add_certification(id, metaurl, skillId);
-                  await tx.wait();
-                  alert('Certificate added successfully! Refresh window');
-              }
-              else {
-                  alert('No skill to link to');
-              }
-            } 
-            catch (e) {                
-              alert('Error adding certificate!');
-              console.error(e);
+    const addCertificate = useCallback(async () => {      
+      setShowModal(false);
+      if (certificates.some((cert) => cert.name === formInput.name))
+        alert('Error! Certificate with this name exists, add another certificate!');
+      else {
+          try {
+            const web3Modal = new Web3Modal();
+            const connection = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
+            const skillids = await contract.skills_of_individual(id);
+            if(skillids.length > 0) {
+                const metaurl = await uploadToIPFS();
+                const tx = await contract.add_certification(id, metaurl, skillId);
+                await tx.wait();
+                getCertificates();
+                alert('Certificate added successfully! Refresh window');
             }
-        }
+            else {
+                alert('No skill to link to');
+            }
+          } 
+          catch (e) {                
+            alert('Error adding certificate!');
+            console.error(e);
+          }
+      }
     }, [certificates, formInput.name, id, uploadToIPFS, skillId]);
 
     const ActiveItem = useCallback(() => {
@@ -152,9 +153,9 @@ export default function Certificates () {
       return (
         <div className='p-6 m-2 flex flex-row justify-between items-center bg-gray-800 border-solid rounded-lg '>
           <h1 className="text-lg font-semibold text-white inline">
-            Skill: {info.skill}
-            <br/>
             Certificate: {info.name}
+            <br/>
+            Skill: {info.skill}            
           </h1>
           <br/>
           <p className='font-medium text-md text-white inline'>

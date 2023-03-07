@@ -28,9 +28,11 @@ export default function SignIn(){
         const [accountType, id] = await contract.signin(email);
         
         if (accountType === 'organization') {
+          alert("Successful! Welcome back");
           // Redirect to the organization dashboard
           router.push(`/orgdashboard?id=${id}`);
         } else {
+          alert("Successful! Welcome back");
           // Redirect to the user dashboard
           router.push(`/userdashboard?id=${id}`);
         }

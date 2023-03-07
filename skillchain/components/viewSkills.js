@@ -12,26 +12,26 @@ export default function ViewSkills (){
     const [skills, setSkills] = useState([]);
 
     const getSkills = useCallback(async () => {
-        // Connect to the network
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-        //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
-          
-        // Load the contract        
-        const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
-        const skillids = await contract.skills_of_individual(id);
-        const promises = [];
-        skillids.forEach(async (skillId) => {
-            if (!skills.some((skill) => skill.id === parseInt(skillId)))
-                promises.push(contract.skills(skillId));
-        });
-        if (promises.length > 0) {
-            const newSkills = (await Promise.all(promises)).map((skill) => ({
-                id: parseInt(skill.id),
-                name: skill.name,
-                verified: skill.verified,
-            }));
-            setSkills((skills) => [...skills, ...newSkills]);
-        }
+      // Connect to the network
+      const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+      //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+        
+      // Load the contract        
+      const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
+      const skillids = await contract.skills_of_individual(id);
+      const promises = [];
+      skillids.forEach(async (skillId) => {
+          if (!skills.some((skill) => skill.id === parseInt(skillId)))
+              promises.push(contract.skills(skillId));
+      });
+      if (promises.length > 0) {
+          const newSkills = (await Promise.all(promises)).map((skill) => ({
+              id: parseInt(skill.id),
+              name: skill.name,
+              verified: skill.verified,
+          }));
+          setSkills((skills) => [...skills, ...newSkills]);
+      }
     }, [id, skills]);
 
     useEffect(() => {
@@ -64,6 +64,9 @@ export default function ViewSkills (){
             })}
           </sidebar>
           <main className='w-3/4 px-0 sm:py-6 sm:px-0 inline-block float-right mt-0'>
+            <h1 className='text-lg font-bold text-white'>
+              {items.find((item) => item.id === active).name}
+            </h1>
             {ActiveItem()}
           </main>
         </div>

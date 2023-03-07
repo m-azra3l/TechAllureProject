@@ -56,7 +56,7 @@ export default function Employees (){
         const tx = await contract.editemployeerole(employeeId);
         await tx.wait();
         console.log('Employee role updated successfully');
-        alert('Employee role updated successfully');
+        alert('Employee role updated successfully! Refresh Window');
         fetchEmployees();
       } 
       catch (err) {
@@ -79,7 +79,7 @@ export default function Employees (){
         await tx.wait();
     
         console.log('Employee removed successfully!');
-        alert('Employee removed successfully!');
+        alert('Employee removed successfully! Refresh Window');
           
         fetchEmployees();
       } 

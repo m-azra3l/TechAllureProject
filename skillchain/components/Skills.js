@@ -17,51 +17,51 @@ export default function Skills (){
     const [skills, setSkills] = useState([]);
 
     const getSkills = useCallback(async () => {
-        // Connect to the network
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-        //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
-        
-        // Load the contract        
-        const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
-        const skillids = await contract.skills_of_individual(id);
-        
-        const promises = [];
-        skillids.forEach(async (skillId) => {
-          if (!skills.some((skill) => skill.id === parseInt(skillId)))
-            promises.push(contract.skills(skillId));
-        });
-        if (promises.length > 0) {
-            const newSkills = (await Promise.all(promises)).map((skill) => ({
-              id: parseInt(skill.id),
-              name: skill.name,
-              verified: skill.verified,
-            }));
-            setSkills((skills) => [...skills, ...newSkills]);
-        }
+      // Connect to the network
+      const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+      //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+      
+      // Load the contract        
+      const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
+      const skillids = await contract.skills_of_individual(id);
+      
+      const promises = [];
+      skillids.forEach(async (skillId) => {
+        if (!skills.some((skill) => skill.id === parseInt(skillId)))
+          promises.push(contract.skills(skillId));
+      });
+      if (promises.length > 0) {
+          const newSkills = (await Promise.all(promises)).map((skill) => ({
+            id: parseInt(skill.id),
+            name: skill.name,
+            verified: skill.verified,
+          }));
+          setSkills((skills) => [...skills, ...newSkills]);
+      }
     }, [id, skills]);
 
-    const addSkill = useCallback(async () => {
-        if (skills.some((skill) => skill.name === newSkill.name))
-          alert('Error! Skill with this name exists, add another skill!');
-        else {
-            setNewSkill('');
-            setShowModal(false);
-            try {
-              const web3Modal = new Web3Modal()
-              const connection = await web3Modal.connect()
-              const provider = new ethers.providers.Web3Provider(connection)
-              const signer = provider.getSigner();
-              const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
-              const tx = await contract.add_skill(id, newSkill);
-              await tx.wait();
-              alert('Skill added successfully!');
-              getSkills();
-            } 
-            catch (e) {                
-              alert('Error adding skill!');
-              console.error(e);
-            }
-        }
+    const addSkill = useCallback(async () => {      
+      setShowModal(false);
+      if (skills.some((skill) => skill.name === newSkill.name))
+        alert('Error! Skill with this name exists, add another skill!');
+      else {
+          setNewSkill('');
+          try {
+            const web3Modal = new Web3Modal()
+            const connection = await web3Modal.connect()
+            const provider = new ethers.providers.Web3Provider(connection)
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
+            const tx = await contract.add_skill(id, newSkill);
+            await tx.wait();            
+            getSkills();
+            alert('Skill added successfully! Refresh window');
+          } 
+          catch (e) {                
+            alert('Error adding skill!');
+            console.error(e);
+          }
+      }
     }, [id, skills, newSkill, getSkills]);
 
     useEffect(() => {
@@ -122,9 +122,8 @@ export default function Skills (){
                       </div>
                       {/*body*/}
                       <div className='relative p-6 flex-auto'>
-                        <p className='my-4 text-white text-lg leading-relaxed'>
-                          Skill Name<br/>
-                          <label>Enter Skill:&nbsp;</label>
+                        <p className='my-4 text-white text-lg leading-relaxed'>                         
+                          <label> Skill Name:&nbsp;</label>
                           <input
                             placeholder='Eg: Solidity'
                             className='border-solid border-black px-2'
@@ -159,6 +158,9 @@ export default function Skills (){
             )}
           </sidebar>
           <main className='w-3/4 px-0 sm:py-6 sm:px-0 inline-block float-right mt-0'>
+            <h1 className='text-lg font-bold text-white'>
+              {items.find((item) => item.id === active).name}
+            </h1>
             {ActiveItem()}
           </main>
         </div>
