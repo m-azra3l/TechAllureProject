@@ -263,7 +263,8 @@ export default function OrgProfile (){
                     {/*body*/}
                     <div className='relative p-6 flex-auto my-4 text-white bg-gray-800 text-lg leading-relaxed'>
                       <form className='mx-auto bg-gray-800'>
-                        <label className='px-1'>Email:</label> &nbsp;
+                        <label className='px-1'>Email:</label>
+                        <br/>
                         <input
                           className='border-solid border-black px-2'
                           type='text'
@@ -272,7 +273,8 @@ export default function OrgProfile (){
                             setEmail(e.target.value);
                           }}></input>
                           <br/>
-                        <label className='px-1'>New Wallet Address:</label>&nbsp;
+                        <label className='px-1'>New Wallet Address:</label>
+                        <br/>
                         <input
                           className='border-solid border-black px-2'
                           type='text'

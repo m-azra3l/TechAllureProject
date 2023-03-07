@@ -295,8 +295,7 @@ export default function UserProfile (){
                     {/*body*/}
                     <div className='relative p-6 flex-auto my-4 text-white bg-gray-800 text-lg leading-relaxed'>
                       <form className='mx-auto bg-gray-800'>
-                        <label className='px-1'>Email:</label>
-                        
+                        <label className='px-1'>Email:</label>                        
                         <br/>
                         <input
                           className='border-solid border-black px-2'
