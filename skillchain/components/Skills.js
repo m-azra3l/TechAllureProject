@@ -161,6 +161,7 @@ export default function Skills (){
             <h1 className='text-lg font-bold text-white'>
               {skills.find((item) => item.id === active)?.name || ''}
             </h1>
+            <br/>
             {ActiveItem()}
           </main>
         </div>

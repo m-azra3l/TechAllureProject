@@ -67,12 +67,17 @@ export default function UserDashBoard(){
                 })}
               </sidebar>
               <main className='w-3/4 lg:px-8 sm:px-6 mx-auto inline-block float-right h-full '>
+                <h1 className='text-xl font-bold text-white'>
+                  &nbsp;&nbsp;&nbsp;Profile
+                </h1>
+                <br/>
                 <div className='border-4 border-solid border-gray-200 rounded-lg h-2/6 mx-5 mt-0 mb-1'>
                   <UserProfile/>
                 </div>
                 <h1 className='text-xl font-bold text-white'>
-                  {items.find((item) => item.id === active).name}
+                  &nbsp;&nbsp;&nbsp;{items.find((item) => item.id === active).name}
                 </h1>
+                <br/>
                 <div className='border-4 border-solid border-gray-200 rounded-lg h-4/6 mx-5 mt-2'>
                   {ActiveItem()}
                 </div>
