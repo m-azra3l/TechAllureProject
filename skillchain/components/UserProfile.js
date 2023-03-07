@@ -295,7 +295,9 @@ export default function UserProfile (){
                     {/*body*/}
                     <div className='relative p-6 flex-auto my-4 text-white bg-gray-800 text-lg leading-relaxed'>
                       <form className='mx-auto bg-gray-800'>
-                        <label className='px-1'>Email:</label> &nbsp;
+                        <label className='px-1'>Email:</label>
+                        
+                        <br/>
                         <input
                           className='border-solid border-black px-2'
                           type='text'
@@ -304,7 +306,8 @@ export default function UserProfile (){
                             setEmail(e.target.value);
                           }}></input>
                           <br/>
-                        <label className='px-1'>New Wallet Address:</label>&nbsp;
+                        <label className='px-1'>New Wallet Address:</label>                        
+                        <br/>
                         <input
                           className='border-solid border-black px-2'
                           type='text'
@@ -317,13 +320,13 @@ export default function UserProfile (){
                     {/*footer*/}
                     <div className='flex items-center justify-end p-6 bg-gray-800 border-t border-solid border-blueGray-200 rounded-b'>
                       <button
-                        className='text-white background-transparent font-bold uppercase text-sm px-6 py-3 bg-red-800 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                        className='text-white background-transparent font-bold text-sm px-6 py-3 bg-red-800 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                         type='button'
                         onClick={() => setShowForm(false)}>
                         Close
                       </button>
                       <button
-                        className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                        className='bg-emerald-500 text-white active:bg-emerald-600 font-bold text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                         type='button'
                         onClick={handleWalletUpdate}>
                         Update
