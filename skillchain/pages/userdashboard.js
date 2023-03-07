@@ -70,9 +70,9 @@ export default function UserDashBoard(){
                 <div className='border-4 border-solid border-gray-200 rounded-lg h-2/6 mx-5 mt-0 mb-1'>
                   <UserProfile/>
                 </div>
-                <h1 className='text-xl font-bold text-white'>
+                {/* <h1 className='text-xl font-bold text-white'>
                   {items.find((item) => item.id === active).name}
-                </h1>
+                </h1> */}
                 <div className='border-4 border-solid border-gray-200 rounded-lg h-4/6 mx-5 mt-2'>
                   {ActiveItem()}
                 </div>
