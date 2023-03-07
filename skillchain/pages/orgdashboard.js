@@ -1,10 +1,13 @@
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import Link from 'next/link'
-import { useState } from 'react'
-import Employees from '@/components/Employees'
-import OrgProfile from '@/components/OrgProfile'
-import { useRouter } from 'next/router';
+import { lazy } from 'react'
+//import Employees from '@/components/Employees'
+//import OrgProfile from '@/components/OrgProfile'
+import { useRouter } from 'next/router'
+ 
+const OrgProfile = lazy(() => import('@/components/OrgProfile'))
+const Employees = lazy(()=>import('@/components/Employees'))
 
 export default function OrgDashBoard(){
   
