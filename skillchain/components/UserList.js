@@ -17,7 +17,8 @@ export default function UserList (){
   const [users, setUsers] = useState([]);
   const [loadingState, setLoadingState] = useState('')
 
-  async function fetchUsers() {
+  async function fetchUsers() {    
+    alert('Please wait for list to load');  
     try{
       const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
       //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');

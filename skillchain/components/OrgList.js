@@ -17,7 +17,8 @@ export default function OrgList (){
     const [orgs, setOrgs] = useState([]);
     const [loadingState, setLoadingState] = useState('');
 
-    async function fetchOrgs() {
+    async function fetchOrgs() {        
+     alert('Please wait for list to load');
         try{
             const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
             //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
