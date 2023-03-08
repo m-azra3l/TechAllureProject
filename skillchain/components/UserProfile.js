@@ -45,7 +45,6 @@ export default function UserProfile (){
 
     
     const [isWalletConnected, setIsWalletConnected] = useState(false);
-    alert('Please wait for profile to load completely');
 
     useEffect(() => {             
       (async () => {
