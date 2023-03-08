@@ -38,7 +38,6 @@ export default function ViewSkills (){
       }
       catch(e){
         console.log(e);
-        alert('Error loading skills',e);
       }
     }, [id, skills]);
 
