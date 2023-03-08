@@ -15,28 +15,36 @@ export default function Skills (){
     const [active, setActive] = useState(-1);
     const [newSkill, setNewSkill] = useState();
     const [skills, setSkills] = useState([]);
+    const [loadingState, setLoadingState] = useState('');
 
     const getSkills = useCallback(async () => {
-      // Connect to the network
-      const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-      //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
-      
-      // Load the contract        
-      const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
-      const skillids = await contract.skills_of_individual(id);
-      
-      const promises = [];
-      skillids.forEach(async (skillId) => {
-        if (!skills.some((skill) => skill.id === parseInt(skillId)))
-          promises.push(contract.skills(skillId));
-      });
-      if (promises.length > 0) {
-          const newSkills = (await Promise.all(promises)).map((skill) => ({
-            id: parseInt(skill.id),
-            name: skill.name,
-            verified: skill.verified,
-          }));
-          setSkills((skills) => [...skills, ...newSkills]);
+      try{
+        // Connect to the network
+        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+        //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+        
+        // Load the contract        
+        const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
+        const skillids = await contract.skills_of_individual(id);
+        
+        const promises = [];
+        skillids.forEach(async (skillId) => {
+          if (!skills.some((skill) => skill.id === parseInt(skillId)))
+            promises.push(contract.skills(skillId));
+        });
+        if (promises.length > 0) {
+            const newSkills = (await Promise.all(promises)).map((skill) => ({
+              id: parseInt(skill.id),
+              name: skill.name,
+              verified: skill.verified,
+            }));
+            setSkills((skills) => [...skills, ...newSkills]);
+            setLoadingState('loaded');
+        }
+      }
+      catch(e){
+        console.log(e);
+        alert('Error loading skills',e);
       }
     }, [id, skills]);
 
@@ -80,18 +88,22 @@ export default function Skills (){
       return (
         <div className='flex mx-auto p-0  h-full'>
           <sidebar className=' w-1/4 bg-gray-800 mx-0 sm:px-6 lg:px-8  float-left text-gray-300'>
-            {skills.map((item, i) => {
-              return (
-                <div
-                  key={i}
-                  className={`m-2 p-2 flex flex-row text-l justify-around hover:bg-gray-300 hover:text-gray-800 w-full`}
-                  onClick={(i) => {
-                    setActive(item.id);
-                  }}>
-                    {item.name} | Id: {item.id}
-                </div>
-              );
-            })}
+            {loadingState ==='loaded' && skills.length ? (
+              skills.map((item, i) => {
+                return (
+                  <div
+                    key={i}
+                    className={`m-2 p-2 flex flex-row text-l justify-around hover:bg-gray-300 hover:text-gray-800 w-full`}
+                    onClick={(i) => {
+                      setActive(item.id);
+                    }}>
+                      {item.name} | Id: {item.id}
+                  </div>
+                );
+              })
+            ):(
+              <div className='text-white'>No skills added yet</div>
+            )}
             <div>
               <button
                 className='bg-green-800 text-white active:bg-red-800 font-bold text-sm mx-6 px-8 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'

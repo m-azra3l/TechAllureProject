@@ -47,51 +47,52 @@ export default function UserProfile (){
     const [isWalletConnected, setIsWalletConnected] = useState(false);
 
     useEffect(() => {        
-        (async () => {
-          try {
-            const web3Modal = new Web3Modal()
-            const connection = await web3Modal.connect()
-            const iprovider = new ethers.providers.Web3Provider(connection)
-            const signer = iprovider.getSigner();
-            const icontract = new ethers.Contract(contractAddress, SkillChain.abi, signer);           
-            setContract(icontract);
-      
-            if (connection && connection.selectedAddress) {
-              setIsWalletConnected(true);
-            } else {
-              router.push('/signin');
-            }
-            const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-            //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
-          
-            // Load the contract        
-            const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
-            let user;
-            user = await contract.employees(id);
-            const signerAddress = await signer.getAddress();
-            if (user.wallet_address != signerAddress)
-            {
-              alert('Wrong address')
-              router.push('/signin')
-            }
-            const meta = await axios.get(user.metaurl);
-            const org  = await contract.organizations(user.organization_id);
-            const orgmeta = await axios.get(org.metaurl);
-            const userData = {
-              id: parseInt(user.id),
-              name: meta.data.name,
-              orgname: orgmeta.data.name,
-              location: meta.data.location,
-              position: meta.data.jobdescription,
-              image: meta.data.image,
-              manager: user.is_manager
-            }
-            setUserData(userData);
-          } catch (e) {
-            console.log(e);
+      alert('Please wait for profile to load completely');       
+      (async () => {
+        try {
+          const web3Modal = new Web3Modal()
+          const connection = await web3Modal.connect()
+          const iprovider = new ethers.providers.Web3Provider(connection)
+          const signer = iprovider.getSigner();
+          const icontract = new ethers.Contract(contractAddress, SkillChain.abi, signer);           
+          setContract(icontract);
+    
+          if (connection && connection.selectedAddress) {
+            setIsWalletConnected(true);
+          } else {
+            router.push('/signin');
           }
-        })();
-      }, [id, router]);
+          const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+          //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+        
+          // Load the contract        
+          const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
+          let user;
+          user = await contract.employees(id);
+          const signerAddress = await signer.getAddress();
+          if (user.wallet_address != signerAddress)
+          {
+            alert('Wrong address')
+            router.push('/signin')
+          }
+          const meta = await axios.get(user.metaurl);
+          const org  = await contract.organizations(user.organization_id);
+          const orgmeta = await axios.get(org.metaurl);
+          const userData = {
+            id: parseInt(user.id),
+            name: meta.data.name,
+            orgname: orgmeta.data.name,
+            location: meta.data.location,
+            position: meta.data.jobdescription,
+            image: meta.data.image,
+            manager: user.is_manager
+          }
+          setUserData(userData);
+        } catch (e) {
+          console.log(e);
+        }
+      })();
+    }, [id, router]);
       
     async function uploadToIPFS() {
         const vercomment = comment

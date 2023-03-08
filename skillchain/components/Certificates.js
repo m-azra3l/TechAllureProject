@@ -34,6 +34,7 @@ export default function Certificates () {
     const [skillId, setSkillId] = useState('');
     const [certificates, setCertificates] = useState([]);
     const [active, setActive] = useState(0);
+    const [loadingState, setLoadingState] = useState('');
     const [formInput, updateFormInput] = useState({ 
         name: "", 
         issuer: "",
@@ -72,7 +73,9 @@ export default function Certificates () {
           }
         }
         setCertificates((certs) => [...certs, ...newCertificates]);
-      } catch (e) {
+        setLoadingState('loaded');
+      } 
+      catch (e) {
         console.log('fetch error');
         alert('Error getting certificates');
         console.error(e);
@@ -86,23 +89,24 @@ export default function Certificates () {
     }, [getCertificates]);
 
     const uploadToIPFS = useCallback( async  () =>{
-        const {name, issuer, link, issueDate, validityDate} = formInput
-        if (!name || !issuer || !issueDate) return
-        /* first, upload to IPFS */
-        const data = JSON.stringify({
-            name, issuer, link, issueDate, validityDate
-        })
-        try {
-            const added = await client.add(data)
-            const url = `https://ipfs.io/ipfs/${added.path}`
-            alert('File uploaded succesfully')
-            /* after file is uploaded to IPFS, return the URL to use it in the transaction */
-            return url
-        } catch (error) {
-            console.log('Error uploading file: ', error)            
-            alert('Error uploading file')
-            return
-        }  
+      const {name, issuer, link, issueDate, validityDate} = formInput
+      if (!name || !issuer || !issueDate) return
+      /* first, upload to IPFS */
+      const data = JSON.stringify({
+        name, issuer, link, issueDate, validityDate
+      })
+      try {
+        const added = await client.add(data)
+        const url = `https://ipfs.io/ipfs/${added.path}`
+        alert('File uploaded succesfully')
+        /* after file is uploaded to IPFS, return the URL to use it in the transaction */
+        return url
+      } 
+      catch (error) {
+        console.log('Error uploading file: ', error)            
+        alert('Error uploading file')
+        return
+      }  
     },[formInput])
 
     const addCertificate = useCallback(async () => {      
@@ -110,28 +114,28 @@ export default function Certificates () {
       if (certificates.some((cert) => cert.name === formInput.name))
         alert('Error! Certificate with this name exists, add another certificate!');
       else {
-          try {
-            const web3Modal = new Web3Modal();
-            const connection = await web3Modal.connect();
-            const provider = new ethers.providers.Web3Provider(connection);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
-            const skillids = await contract.skills_of_individual(id);
-            if(skillids.length > 0) {
-                const metaurl = await uploadToIPFS();
-                const tx = await contract.add_certification(id, metaurl, skillId);
-                await tx.wait();
-                getCertificates();
-                alert('Certificate added successfully! Refresh window');
-            }
-            else {
-                alert('No skill to link to');
-            }
-          } 
-          catch (e) {                
-            alert('Error adding certificate!');
-            console.error(e);
+        try {
+          const web3Modal = new Web3Modal();
+          const connection = await web3Modal.connect();
+          const provider = new ethers.providers.Web3Provider(connection);
+          const signer = provider.getSigner();
+          const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
+          const skillids = await contract.skills_of_individual(id);
+          if(skillids.length > 0) {
+            const metaurl = await uploadToIPFS();
+            const tx = await contract.add_certification(id, metaurl, skillId);
+            await tx.wait();
+            getCertificates();
+            alert('Certificate added successfully! Refresh window');
           }
+          else {
+            alert('No skill to link to');
+          }
+        } 
+        catch (e) {                
+          alert('Error adding certificate!');
+          console.error(e);
+        }
       }
     }, [certificates, formInput.name, id, uploadToIPFS, skillId]);
 
@@ -174,18 +178,21 @@ export default function Certificates () {
     return (
         <div className='flex mx-auto p-0  h-full'>
           <sidebar className=' w-1/4 bg-gray-800 mx-0 sm:px-6 lg:px-8  float-left text-gray-300'>
-            {certificates.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className={`m-2 p-2 text-l hover:bg-gray-300 hover:text-gray-800 w-full`}
-                  onClick={() => {
-                    setActive(item.id);
-                  }}>
-                  {item.name}
-                </div>
-              );
-            })}
+            {loadingState === 'loaded' && certificates.length ? (
+              certificates.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className={`m-2 p-2 text-l hover:bg-gray-300 hover:text-gray-800 w-full`}
+                    onClick={() => {
+                      setActive(item.id);
+                    }}>
+                    {item.name}
+                  </div>
+                );
+              })):(
+                <div className='text-white'>No certificates added yet</div>
+              )}
             <div>
               <button
                 className='bg-green-800 text-white active:bg-red-800 font-bold text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'

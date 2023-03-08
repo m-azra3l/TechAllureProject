@@ -10,6 +10,7 @@ import Web3Modal from 'web3modal'
 export default function ViewCertificates () {
     const router = useRouter();
     const { id } = router.query;
+    const [loadingState, setLoadingState] = useState('');
     const [certificates, setCertificates] = useState([
         {
           id: null,
@@ -51,8 +52,10 @@ export default function ViewCertificates () {
             }
           }
         }
-        setCertificates((certs) => [...certs, ...newCertificates]);
-      } catch (e) {
+        setCertificates((certs) => [...certs, ...newCertificates]);        
+        setLoadingState('loaded');
+      } 
+      catch (e) {
         console.log('fetch error');
         alert('Error getting certificates');
         console.error(e);
@@ -103,18 +106,21 @@ export default function ViewCertificates () {
     return (
         <div className='flex mx-auto p-0  h-full'>
           <sidebar className=' w-1/4 bg-gray-800 mx-0 sm:px-6 lg:px-8  float-left text-gray-300'>
-            {certificates.map((item, i) => {
-              return (
-                <div
-                  key={i}
-                  className={`m-2 p-2 text-l hover:bg-gray-300 hover:text-gray-800 w-full`}
-                  onClick={(i) => {
-                    setActive(item.id);
-                  }}>
-                  {item.name}
-                </div>
-              );
-            })}
+            {loadingState === 'loaded' && certificates.length ? (
+              certificates.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className={`m-2 p-2 text-l hover:bg-gray-300 hover:text-gray-800 w-full`}
+                    onClick={() => {
+                      setActive(item.id);
+                    }}>
+                    {item.name}
+                  </div>
+                );
+              })):(
+                <div className='text-white'>No certificates added yet</div>
+            )}
           </sidebar>
           <main className='w-3/4 px-0 sm:py-6 sm:px-0 inline-block float-right mt-0'>
             {ActiveItem()}
