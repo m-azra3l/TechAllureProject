@@ -20,6 +20,7 @@ export default function OrgProfile (){
     const [walletAdd, setWalletAdd] = useState('');
     
     const [isWalletConnected, setIsWalletConnected] = useState(false);
+    alert('Please wait for profile to load completely');
 
     // useEffect(() => {
     //   async function fetchData() {

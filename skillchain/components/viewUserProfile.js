@@ -12,7 +12,7 @@ export default function ViewUserProfile (){
     const router = useRouter();
     const { id } = router.query;
     const [userData, setUserData] = useState([]);
-
+    alert('Please wait for profile to load completely');
     useEffect(() => {       
         (async () => {
             try {
