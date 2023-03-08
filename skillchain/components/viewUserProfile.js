@@ -12,10 +12,11 @@ export default function ViewUserProfile (){
     const router = useRouter();
     const { id } = router.query;
     const [userData, setUserData] = useState([]);
-    
+
     useEffect(() => {       
         (async () => {
-            try {
+            try {                
+                alert('Please wait for profile to load completely'); 
                 const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
                 //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
                 
