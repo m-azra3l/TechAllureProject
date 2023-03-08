@@ -15,7 +15,7 @@ export default function Skills (){
     const [active, setActive] = useState(-1);
     const [newSkill, setNewSkill] = useState();
     const [skills, setSkills] = useState([]);
-    const [loadingState, setLoadingState] = useState('');
+    const [loadingState, setLoadingState] = useState(false);
 
     const getSkills = useCallback(async () => {
       try{
@@ -39,12 +39,11 @@ export default function Skills (){
               verified: skill.verified,
             }));
             setSkills((skills) => [...skills, ...newSkills]);
-            setLoadingState('loaded');
+            setLoadingState(true);
         }
       }
       catch(e){
         console.log(e);
-        alert('Error loading skills',e);
       }
     }, [id, skills]);
 
@@ -88,7 +87,7 @@ export default function Skills (){
       return (
         <div className='flex mx-auto p-0  h-full'>
           <sidebar className=' w-1/4 bg-gray-800 mx-0 sm:px-6 lg:px-8  float-left text-gray-300'>
-            {loadingState ==='loaded' && skills.length ? (
+            {loadingState ? (
               skills.map((item, i) => {
                 return (
                   <div
