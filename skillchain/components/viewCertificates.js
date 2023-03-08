@@ -119,7 +119,7 @@ export default function ViewCertificates () {
                   </div>
                 );
               })):(
-                <div className='text-white'>No certificates added yet</div>
+                <></>
             )}
           </sidebar>
           <main className='w-3/4 px-0 sm:py-6 sm:px-0 inline-block float-right mt-0'>

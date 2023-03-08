@@ -87,7 +87,7 @@ export default function Skills (){
       return (
         <div className='flex mx-auto p-0  h-full'>
           <sidebar className=' w-1/4 bg-gray-800 mx-0 sm:px-6 lg:px-8  float-left text-gray-300'>
-            {loadingState === 'loaded' ? (
+            {loadingState === 'loaded' && skills.length ? (
               skills.map((item, i) => {
                 return (
                   <div
@@ -101,7 +101,7 @@ export default function Skills (){
                 );
               })
             ):(
-              <div className='text-white'>No skills added yet</div>
+              <></>
             )}
             <div>
               <button

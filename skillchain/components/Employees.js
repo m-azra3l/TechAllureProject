@@ -43,7 +43,6 @@ export default function Employees (){
     } 
     catch(e){
       console.log(e);
-      alert('Error loading employees',e);
     }        
   }, [id]);
   

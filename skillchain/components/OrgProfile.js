@@ -47,7 +47,6 @@ export default function OrgProfile (){
     
     
     const loadData = useCallback(async () => {      
-      alert('Please wait for profile to load completely'); 
       try {
         const web3Modal = new Web3Modal()
         const connection = await web3Modal.connect()

@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function AccountList() {
   const router = useRouter();
   const { type } = router.query;
+  alert('Please wait for list to load');
   
   function handleClick() {
     router.back();

@@ -191,7 +191,7 @@ export default function Certificates () {
                   </div>
                 );
               })):(
-                <div className='text-white'>No certificates added yet</div>
+                <></>
               )}
             <div>
               <button

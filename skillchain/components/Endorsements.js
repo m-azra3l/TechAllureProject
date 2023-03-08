@@ -65,32 +65,34 @@ import {contractAddress} from '../config'
         );
     }
     else{
-        <>
-            {    
-                comments.map((comment) => (
-                    <div className='p-6 m-2 flex flex-row justify-between items-center bg-gray-800 border-solid rounded-lg ' key={comment.id}>
-                        <div>
-                            <p className='font-medium text-lg text-white inline'>
-                                {comment.endorser} | {comment.endorserposition}
+        return(
+            <>
+                {    
+                    comments.map((comment) => (
+                        <div className='p-6 m-2 flex flex-row justify-between items-center bg-gray-800 border-solid rounded-lg ' key={comment.id}>
+                            <div>
+                                <p className='font-medium text-lg text-white inline'>
+                                    {comment.endorser} | {comment.endorserposition}
+                                    <br/>
+                                    {comment.date} 
+                                </p>
                                 <br/>
-                                {comment.date} 
-                            </p>
-                            <br/>
-                            <p className='font-medium text-md text-white inline'>                        
-                                {comment.content}
-                            </p>
+                                <p className='font-medium text-md text-white inline'>                        
+                                    {comment.content}
+                                </p>
+                            </div>
+                            <div>                      
+                            <img
+                                src={comment.endorserimage}
+                                alt='Profile'
+                                className='w-36 h-36 rounded-full object-cover object-center'
+                            />
+                            </div>
                         </div>
-                        <div>                      
-                        <img
-                            src={comment.endorserimage}
-                            alt='Profile'
-                            className='w-36 h-36 rounded-full object-cover object-center'
-                        />
-                        </div>
-                    </div>
-                ))
-            }
-        </>
+                    ))
+                }
+            </>
+        );
     }
 
 };
