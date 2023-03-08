@@ -15,8 +15,7 @@ export default function ViewUserProfile (){
 
     useEffect(() => {       
         (async () => {
-            try {                
-                alert('Please wait for profile to load completely'); 
+            try {
                 const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
                 //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
                 
