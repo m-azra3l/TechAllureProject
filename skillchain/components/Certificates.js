@@ -77,7 +77,6 @@ export default function Certificates () {
       } 
       catch (e) {
         console.log('fetch error');
-        alert('Error getting certificates');
         console.error(e);
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
