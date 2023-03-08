@@ -100,7 +100,7 @@ export default function UserList (){
             <div className={styles.cardlist}>
                 {users.map((user, i) => (                  
                   <div className={styles.profilecard} key={i}>
-                    <center><img src={user.image} alt="user profile" width={200} height={200} className={styles.profileimage} /></center>
+                    <center><img src={user.image} alt="user profile" className={styles.profileimage} /></center>
                     <br/>
                     <center>
                       <p className={styles.notice}>{user.name}</p>

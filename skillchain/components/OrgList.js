@@ -105,7 +105,7 @@ export default function OrgList (){
                         <div className={styles.cardlist}>
                             {orgs.map((org, i) => (
                                 <div className={styles.profilecard} key={i}>
-                                    <center><img src={org.image} alt="org profile" width={200} height={200} className={styles.profileimage} /></center>
+                                    <center><img src={org.image} alt="org profile" className={styles.profileimage} /></center>
                                     <br/>
                                     <center>
                                         <p className={styles.notice}>{org.name}</p>
