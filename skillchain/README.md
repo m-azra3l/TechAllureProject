@@ -6,6 +6,34 @@ A skill verification system built on blockchain technology can shorten the time 
 
 ## Project Snapshot
 
+- Landing Page
+![Screenshot (154)](https://user-images.githubusercontent.com/26850963/224640695-1e75d120-1318-4613-a637-b4c7cdcdb2d5.png)
+
+- Signup Page
+![Screenshot (150)](https://user-images.githubusercontent.com/26850963/224640924-01def794-31ca-4733-a1da-825a4374d87e.png)
+![Screenshot (151)](https://user-images.githubusercontent.com/26850963/224640931-c5e54639-65c8-4307-b138-b00a987ae2d2.png)
+![Screenshot (152)](https://user-images.githubusercontent.com/26850963/224640936-f4606b95-7e7d-4c31-9855-5e4427834b07.png)
+
+- Signin Page
+![Screenshot (153)](https://user-images.githubusercontent.com/26850963/224641020-27ed93ab-38a1-42dd-823f-54eff01a4e69.png)
+
+- Organization Dashboard
+![Screenshot (146)](https://user-images.githubusercontent.com/26850963/224641303-f4364042-76e3-4919-8a7f-1c16f055931b.png)
+![Screenshot (147)](https://user-images.githubusercontent.com/26850963/224641316-0d7521e2-687e-469e-8697-871e9d7bf971.png)
+
+- User Dashboard
+![Screenshot (158)](https://user-images.githubusercontent.com/26850963/224641971-00263f2e-97cb-4674-813a-7b759b27675b.png)
+
+- User List
+![Screenshot (148)](https://user-images.githubusercontent.com/26850963/224642053-dbe45914-0956-40c3-9e69-6dd8bb57ba48.png)
+
+- Organization List
+![Screenshot (149)](https://user-images.githubusercontent.com/26850963/224642156-0b9efde1-0acf-4174-b646-ea057a85c488.png)
+
+- View User
+![Screenshot (155)](https://user-images.githubusercontent.com/26850963/224642252-478658de-85fc-494f-8e1b-bb250a540107.png)
+![Screenshot (156)](https://user-images.githubusercontent.com/26850963/224642260-0ca243eb-5148-492c-9fda-9d920b71a589.png)
+
 ## Project Website Link
 
 Live website link: [SkillChain](https://tech-allure-project-m-azra3l.vercel.app/)
@@ -35,6 +63,26 @@ Clone the forked repository to your local machine
 - Infura
 - IPFS
 - Polygon Mumbai Test Network
+
+### Infura IPFS
+
+Here are the steps to create an Infura IPFS project, get the project ID and project secret key, and add them to the .env file:
+
+1. Sign up for an account on Infura's website and create a new project.
+
+2. In the project dashboard, click on the "Keys" tab and generate a new API key for IPFS.
+
+3. Copy the Project ID and Project Secret Key from the project dashboard.
+
+4. Rename `.env.example` to `.env` in the root directory of your project.
+
+5. Add the following lines to the .env file, replacing YOUR_PROJECT_ID and YOUR_PROJECT_SECRET_KEY with the actual values:
+
+IPFS_ID = "Your infura ipfs project Id "
+IPFS_KEY = "Your infura ipfs project key"
+
+6. Save the .env file.
+Now you can use the project ID and project secret key in your application by accessing the IPFS_ID and IPFS_KEY environment variables.
 
 ### Hardhat
 
