@@ -44,7 +44,7 @@ export default function UserList (){
     }
     catch(e){
       console.log(e);
-      alert('Error loading list');
+      alert('Error loading list', e);
     }
   }
     
