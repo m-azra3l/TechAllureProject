@@ -17,35 +17,58 @@ export default function UserList (){
   const [users, setUsers] = useState([]);
   const [loadingState, setLoadingState] = useState('')
 
-  async function fetchUsers() {    
-    alert('Please wait for list to load');  
-    try{
-      const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-      //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
-      const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
-      const numUsers = await contract.getNumberOfUsers();
+  // async function fetchUsers() {    
+  //   alert('Please wait for list to load');  
+  //   try{
+  //     const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+  //     //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+  //     const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
+  //     const numUsers = await contract.getNumberOfUsers();
     
-      const users = [];
-      for (let i = 0; i < numUsers; i++) {
-        const user = await contract.getAllUsers(); // Call the function without passing any arguments
-        const meta = await axios.get(user[i].metaurl); // Access the individual's metaurl by index
-        if (parseInt(user[i].id) !== 0){
-          users.push({
-            id: parseInt(user[i].id),
-            name: meta.data.name,
-            location: meta.data.location,
-            jobdescription: meta.data.jobdescription,
-            image: meta.data.image
-          });
-        }        
-      }
-      setUsers(users);
-      setLoadingState('loaded');
+  //     const users = [];
+  //     for (let i = 0; i < numUsers; i++) {
+  //       const user = await contract.getAllUsers(); // Call the function without passing any arguments
+  //       const meta = await axios.get(user[i].metaurl); // Access the individual's metaurl by index
+  //       if (parseInt(user[i].id) !== 0){
+  //         users.push({
+  //           id: parseInt(user[i].id),
+  //           name: meta.data.name,
+  //           location: meta.data.location,
+  //           jobdescription: meta.data.jobdescription,
+  //           image: meta.data.image
+  //         });
+  //       }        
+  //     }
+  //     setUsers(users);
+  //     setLoadingState('loaded');
+  //   }
+  //   catch(e){
+  //     console.log(e);
+  //     alert('Error loading list', e);
+  //   }
+  // }
+
+  async function fetchUsers() {
+    const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+    //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+    const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
+    const numUsers = await contract.getNumberOfUsers();
+  
+    const users = [];
+    for (let i = 0; i < numUsers; i++) {
+      const user = await contract.getAllUsers(); // Call the function without passing any arguments
+      const meta = await axios.get(user[i].metaurl); // Access the individual's metaurl by index
+      if (parseInt(user[i].id) !== 0){
+        users.push({
+          id: parseInt(user[i].id),
+          name: meta.data.name,
+          location: meta.data.location,
+          jobdescription: meta.data.jobdescription,
+          image: meta.data.image
+        });
+      }        
     }
-    catch(e){
-      console.log(e);
-      alert('Error loading list', e);
-    }
+    setUsers(users);
   }
     
   useEffect(() => {
