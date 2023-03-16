@@ -27,9 +27,10 @@ export default function UserList (){
     
       const users = [];
       for (let i = 0; i < numUsers; i++) {
-        const user = await contract.getAllUsers();// Call the function without passing any arguments        
+        const user = await contract.getAllUsers();// Call the function without passing any arguments       
         if (parseInt(user[i].id) !== 0){
-          const meta = await axios.get(user[i].metaurl); // Access the individual's metaurl by index
+          const metaUrl = user[i].metaurl; // Get the metaurl for this user
+          const meta = await axios.get(metaUrl); // Make a GET request to the metaurl
           users.push({
             id: parseInt(user[i].id),
             name: meta.data.name,
