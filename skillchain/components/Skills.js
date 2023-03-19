@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { ethers } from 'ethers'
-import Endorsement from './Endorsements';
-
+import Endorsement from './Endorsements'
 
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json'
 import {contractAddress} from '../config'
 import Web3Modal from 'web3modal'
+
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA
 
 export default function Skills (){
     const router = useRouter();
@@ -19,8 +20,9 @@ export default function Skills (){
 
     const getSkills = useCallback(async () => {
       try{
-        // Connect to the network
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+        // Connect to the network        
+        const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+        //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
         //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
         
         // Load the contract        
@@ -54,15 +56,18 @@ export default function Skills (){
       else {
           setNewSkill('');
           try {
-            const web3Modal = new Web3Modal()
+            const web3Modal = new Web3Modal();
             const connection = await web3Modal.connect()
-            const provider = new ethers.providers.Web3Provider(connection)
+            const provider = new ethers.providers.Web3Provider(connection);
             const signer = provider.getSigner();
             const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
             const tx = await contract.add_skill(id, newSkill);
-            await tx.wait();            
+            const receipt = await tx.wait();
+            if (receipt.status === 1) { 
+              alert('Skill added successfully! Refresh window');
+            }
+            console.log(`Transaction hash: ${tx.hash}`);           
             getSkills();
-            alert('Skill added successfully! Refresh window');
           } 
           catch (e) {                
             alert('Error adding skill!');

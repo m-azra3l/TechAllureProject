@@ -5,7 +5,8 @@ import axios from 'axios'
 
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json'
 import {contractAddress} from '../config'
-import Web3Modal from 'web3modal'
+
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA
 
 export default function ViewCertificates () {
     const router = useRouter();
@@ -26,7 +27,8 @@ export default function ViewCertificates () {
     const getCertificates = useCallback(async () => {
       try {
         // Connect to the network
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+        const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+        //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
         //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
     
         // Load the contract        

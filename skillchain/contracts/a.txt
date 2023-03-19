@@ -1,0 +1,14 @@
+
+struct individual {
+    uint256 id;
+    uint256 organization_id;
+    string metaurl;
+    address wallet_address;
+    bool is_employed;
+    bool is_manager;
+    uint256 num_skill;
+    uint256[] individual_skills;
+        
+}
+
+individual[] public employees;

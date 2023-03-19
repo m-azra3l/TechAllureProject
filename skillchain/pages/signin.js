@@ -10,7 +10,6 @@ import Web3Modal from 'web3modal';
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json';
 import {contractAddress} from '../config';
 
-
 export default function SignIn(){
     const router = useRouter();
     const [email, setEmail] = useState('');

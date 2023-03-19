@@ -57,7 +57,7 @@ export default function Profile(){
               User Profile
             </h1>
             <div className='flex'>
-              <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Users</Link>
+              <Link href='/accountlist?type=individuals' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Users</Link>
               <Link href='/accountlist?type=organizations' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Organizations</Link>
             </div>
           </div>

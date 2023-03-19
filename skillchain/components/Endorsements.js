@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useCallback } from 'react';
-import { ethers } from 'ethers'
-import axios from 'axios'
+import { ethers } from 'ethers';
+import axios from 'axios';
 
-import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json'
-import {contractAddress} from '../config'
+
+import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json';
+import {contractAddress} from '../config';
+
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA;
 
  const Endorsement = ({skillId}) => {
     const [comments, setComments] = useState([]);
@@ -13,7 +16,8 @@ import {contractAddress} from '../config'
      
     const getComments = useCallback(async () => {
         try{
-            const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+            const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+            //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
             //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
         
             // Load the contract        
@@ -23,9 +27,8 @@ import {contractAddress} from '../config'
                 if (!comments.some((comment) => comment.id === parseInt(cid))) {
                     const comment = await contract.verifications(cid);
                     const meta = await axios.get(comment.metaurl);
-                    console.log(comment.metaurl)
                     const endorser = await contract.employees(comment.verifier_id);
-                    const emeta = await axios.get(endorser.metaurl)
+                    const emeta = await axios.get(endorser.metaurl);
                     setComments([
                         ...comments,
                         {

@@ -42,26 +42,22 @@ export default function SignUp(){
 
     const onDrop = useCallback(async (acceptedFile) => {
         const url = await uploadImage(acceptedFile[0]);
-        console.log(url);
         setImageUrl(url);
-        alert("Image uploaded successfully");
-        
+        alert("Image uploaded successfully");        
     }, []);
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         accept: "image/*",
-        maxSize: 2048000,
+        maxSize: 1024000,
     });
 
    
     const uploadImage = async (file) => {
         try {
             alert("Please wait while image upload");
-            const added = await client.add({ content: file });
-        
-            const url = `https://ipfs.io/ipfs/${added.path}`;
-        
+            const added = await client.add({ content: file });        
+            const url = `https://ipfs.io/ipfs/${added.path}`;        
             return url;          
         } 
         catch (error) {
@@ -122,9 +118,11 @@ export default function SignUp(){
         try {            
             const metaurl = await uploadToIPFS();
             const tx = await contract.sign_up(email, metaurl, acc_type);
-            console.log(`Transaction hash: ${tx.hash}`);
-            alert('Account created successfuly');
-            
+            const receipt = await tx.wait();
+            if (receipt.status === 1) {                
+                alert('Account created successfuly');
+            }
+            console.log(`Transaction hash: ${tx.hash}`);            
             router.push('/signin');
         } 
         catch (err) {

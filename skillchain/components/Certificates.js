@@ -5,11 +5,11 @@ import { ethers } from 'ethers';
 import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 
-// import SkillChain from '../abis/SkillChain.json'
-// import {contractAddress} from '../abis/config'
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json';
 import {contractAddress} from '../config';
 import Web3Modal from 'web3modal';
+
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA;
 
 const projectId = process.env.IPFS_ID;   // <---------- your Infura Project ID
 
@@ -47,7 +47,8 @@ export default function Certificates () {
       try {
         // Connect to the network
         //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+        //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');        
+        const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
     
         // Load the contract        
         const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
@@ -123,9 +124,12 @@ export default function Certificates () {
           if(skillids.length > 0) {
             const metaurl = await uploadToIPFS();
             const tx = await contract.add_certification(id, metaurl, skillId);
-            await tx.wait();
+            const receipt = await tx.wait();
+            if (receipt.status === 1) {     
+              alert('Certificate added successfully! Refresh window');
+            }
+            console.log(`Transaction hash: ${tx.hash}`); 
             getCertificates();
-            alert('Certificate added successfully! Refresh window');
           }
           else {
             alert('No skill to link to');
@@ -136,7 +140,7 @@ export default function Certificates () {
           console.error(e);
         }
       }
-    }, [certificates, formInput.name, id, uploadToIPFS, skillId]);
+    }, [certificates, formInput.name, id, uploadToIPFS, skillId, getCertificates]);
 
     const ActiveItem = useCallback(() => {
       switch (active) {

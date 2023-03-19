@@ -7,6 +7,8 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import axios from 'axios';
 
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA;
+
 export default function Employees (){
   const router = useRouter();
   const { id } = router.query; 
@@ -15,8 +17,9 @@ export default function Employees (){
 
   const fetchEmployees = useCallback(async () =>{
     try{
-      // Connect to the network      
-      const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+      // Connect to the network         
+      const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+      //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
       //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
     
       //Load the contract        
@@ -59,14 +62,16 @@ export default function Employees (){
       const signer = provider.getSigner()
       const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
       const tx = await contract.editemployeerole(employeeId);
-      await tx.wait();
-      console.log('Employee role updated successfully');
-      alert('Employee role updated successfully! Refresh Window');
+      const receipt = await tx.wait();
+      if (receipt.status === 1) { 
+        alert('Employee role updated successfully! Refresh Window');
+      }
+      console.log(`Transaction hash: ${tx.hash}`); 
       fetchEmployees();
     } 
     catch (err) {
       console.error('Error updating employee role:', err);
-      alert('Error updating employee role:');
+      alert('Error updating employee role');
     }
   }
 
@@ -79,13 +84,11 @@ export default function Employees (){
       const signer = provider.getSigner()
       const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
       const tx = await contract.remove_employee(id, employeeId);
-  
-      // wait for the transaction to be mined
-      await tx.wait();
-  
-      console.log('Employee removed successfully!');
-      alert('Employee removed successfully! Refresh Window');
-        
+      const receipt = await tx.wait();
+      if (receipt.status === 1) { 
+        alert('Employee removed successfully! Refresh Window');
+      }
+      console.log(`Transaction hash: ${tx.hash}`);         
       fetchEmployees();
     } 
     catch (error) {

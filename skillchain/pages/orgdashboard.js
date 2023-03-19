@@ -2,8 +2,6 @@ import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import Link from 'next/link'
 import { lazy } from 'react'
-//import Employees from '@/components/Employees'
-//import OrgProfile from '@/components/OrgProfile'
 import { useRouter } from 'next/router'
  
 const OrgProfile = lazy(() => import('@/components/OrgProfile'))
@@ -33,7 +31,7 @@ export default function OrgDashBoard(){
               Dashboard
             </h1>
             <div className='flex'>
-              <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Users</Link>
+              <Link href='/accountlist?type=individuals' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Users</Link>
               <Link href='/accountlist?type=organizations' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>View Organizations</Link>
             </div>
           </div>

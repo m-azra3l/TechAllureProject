@@ -2,6 +2,8 @@
 require("@nomiclabs/hardhat-waffle");
 require('dotenv').config();
 
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA;
+
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
@@ -15,7 +17,7 @@ module.exports = {
     },
     //infura mumbai testnet for deploying smart contract
     infura_mumbai: {
-      url: process.env.MUMBAI_INFURA,
+      url: MUMBAI_INFURA,
       accounts: [process.env.PRIVATE_KEY]
     }
   },

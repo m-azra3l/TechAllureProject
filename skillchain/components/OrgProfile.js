@@ -8,6 +8,8 @@ import Web3Modal from 'web3modal'
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json'
 import {contractAddress} from '../config'
 
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA
+
 export default function OrgProfile (){
     const [showModal, setShowModal] = useState(false);
     const [showForm, setShowForm] = useState(false);
@@ -20,37 +22,13 @@ export default function OrgProfile (){
     const [walletAdd, setWalletAdd] = useState('');
     
     const [isWalletConnected, setIsWalletConnected] = useState(false);
-
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     // Check if the user has previously connected their wallet
-    //     const web3Modal = new Web3Modal()
-    //     const connection = await web3Modal.connect()
-    //     const provider = new ethers.providers.Web3Provider(connection)
-    //     const signer = provider.getSigner();
-    //     const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
-    //     setContract(contract);
     
-    //     if (connection && connection.selectedAddress) {
-    //       setIsWalletConnected(true);
-    //     } 
-    //     else {
-    //       router.push('/signin');
-    //     }
-    
-    //   }
-    
-    //   fetchData();
-    // }, [router]);
-    
-    
-    
-    
-    const loadData = useCallback(async () => {      
+    const loadData = useCallback(async () => {    
+      alert('Please wait for profile to load');  
       try {
-        const web3Modal = new Web3Modal()
-        const connection = await web3Modal.connect()
-        const iprovider = new ethers.providers.Web3Provider(connection)
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const iprovider = new ethers.providers.Web3Provider(connection);
         const signer = iprovider.getSigner();
         const contract = new ethers.Contract(contractAddress, SkillChain.abi, signer);
         setContract(contract);
@@ -59,9 +37,10 @@ export default function OrgProfile (){
           setIsWalletConnected(true);
         } else {
           router.push('/signin');
-        }
-    
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+        }       
+        
+        const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+        //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
         //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
     
         // Load the contract        
@@ -111,9 +90,12 @@ export default function OrgProfile (){
         {
           e.preventDefault();
           const tx = await contract.add_employee(id, employeeId);
-          await tx.wait();          
+          const receipt = await tx.wait();
+          if (receipt.status === 1) { 
+            alert('Employee added successfully! Refresh window');
+          }
+          console.log(`Transaction hash: ${tx.hash}`);            
           loadData();
-          alert('Employee added successfully! Refresh window');
         }
       } 
       catch (error) {
@@ -129,8 +111,11 @@ export default function OrgProfile (){
         {
           e.preventDefault();
           const tx = await contract.update_wallet_address(email, walletAdd);
-          await tx.wait();
-          alert('Wallet address updated successfully, switch to the wallet address');
+          const receipt = await tx.wait();
+          if (receipt.status === 1) { 
+            alert('Wallet address updated successfully, switch to the wallet address');
+          }
+          console.log(`Transaction hash: ${tx.hash}`);  
           loadData();
         }
       } 

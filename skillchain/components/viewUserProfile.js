@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router'
-import { ethers, BigNumber } from 'ethers'
+import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Link from 'next/link'
-import styles from '@/styles/index.module.css'
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json'
 import {contractAddress} from '../config'
+
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA
 
 export default function ViewUserProfile (){
     const router = useRouter();
@@ -15,8 +15,10 @@ export default function ViewUserProfile (){
 
     useEffect(() => {       
         (async () => {
-            try {
-                const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+            try {                  
+                alert('Please wait for profile to load');
+                const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+                //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
                 //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
                 
                 const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);

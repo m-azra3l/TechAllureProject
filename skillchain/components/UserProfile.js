@@ -8,6 +8,8 @@ import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json'
 import {contractAddress} from '../config'
 import Web3Modal from 'web3modal'
 
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA;
+
 const projectId = process.env.IPFS_ID;   // <---------- your Infura Project ID
 
 const projectSecret = process.env.IPFS_KEY;  // <---------- your Infura Secret
@@ -41,17 +43,17 @@ export default function UserProfile (){
     useEffect(() => {
         setDate(new Date().toLocaleDateString('en-GB')); // update date whenever the component mounts or updates
     }, []);
-
-
     
     const [isWalletConnected, setIsWalletConnected] = useState(false);
 
     useEffect(() => {             
       (async () => {
         try {
-          const web3Modal = new Web3Modal()
-          const connection = await web3Modal.connect()
-          const iprovider = new ethers.providers.Web3Provider(connection)
+            
+          alert('Please wait for profile to load');
+          const web3Modal = new Web3Modal();
+          const connection = await web3Modal.connect();
+          const iprovider = new ethers.providers.Web3Provider(connection);
           const signer = iprovider.getSigner();
           const icontract = new ethers.Contract(contractAddress, SkillChain.abi, signer);           
           setContract(icontract);
@@ -61,7 +63,9 @@ export default function UserProfile (){
           } else {
             router.push('/signin');
           }
-          const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+
+          const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+          //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
           //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
         
           // Load the contract        
@@ -122,8 +126,11 @@ export default function UserProfile (){
               e.preventDefault();
               const metaurl = await uploadToIPFS();
               const tx = await contract.verify_skill(employeeId, skillId, metaurl);
-              await tx.wait();
-              alert('Skill endorsed successfully!');
+              const receipt = await tx.wait();
+              if (receipt.status === 1) {   
+                alert('Skill endorsed successfully!');
+              }
+              console.log(`Transaction hash: ${tx.hash}`);
             }
             else{
               alert("Endorser cannot endorse their own skill");       
@@ -147,8 +154,11 @@ export default function UserProfile (){
         {
           e.preventDefault();
           const tx = await contract.update_wallet_address(email, walletAdd);
-          await tx.wait();
-          alert('Wallet address updated successfully, switch to the wallet address');
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {   
+            alert('Wallet address updated successfully, switch to the wallet address');
+          }
+          console.log(`Transaction hash: ${tx.hash}`);
           loadData();
         }
       } 

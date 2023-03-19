@@ -1,9 +1,7 @@
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/index.module.css'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
@@ -42,7 +40,7 @@ export default function Home() {
               <br/>
               <div className={`${styles.row} ${styles.itemscenter}`}>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
+                <Link href='/accountlist?type=individuals' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
                   View Users
                 </Link>
                 <Link href='/accountlist?type=organizations' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
@@ -129,7 +127,7 @@ export default function Home() {
               <br/>
               <div className={`${styles.row} ${styles.itemscenter}`}>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
+                <Link href='/accountlist?type=individuals' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
                   View Users
                 </Link>
                 <Link href='/accountlist?type=organizations' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>

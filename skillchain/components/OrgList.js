@@ -3,14 +3,12 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import styles from '@/styles/index.module.css';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
-
-//import SkillChain from '../abis/SkillChain.json';
-// import {contractAddress} from '../abis/config';
 import SkillChain from '../artifacts/contracts/SkillChain.sol/SkillChain.json';
 import {contractAddress} from '../config';
+
+const MUMBAI_INFURA = process.env.MUMBAI_INFURA;
 
 export default function OrgList (){
 
@@ -20,7 +18,8 @@ export default function OrgList (){
     async function fetchOrgs() {        
      alert('Please wait for list to load');
         try{
-            const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
+            const provider = new ethers.providers.JsonRpcProvider(MUMBAI_INFURA);
+            //const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
             //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
             const contract = new ethers.Contract(contractAddress, SkillChain.abi, provider);
 
@@ -29,8 +28,8 @@ export default function OrgList (){
             const orgs = [];
             for (let i = 0; i < numOrgs; i++) {
                 const org = await contract.getAllOrgs();
-                const meta = await axios.get(org[i].metaurl)
-                if (parseInt(org[i].id) !== 0) {
+                if (parseInt(org[i].id) !== 0) {                    
+                    const meta = await axios.get(org[i].metaurl);
                     orgs.push({
                         id: parseInt(org[i].id),
                         name: meta.data.name,
@@ -69,7 +68,7 @@ export default function OrgList (){
                             </Link> 
                             <br/> 
                             &nbsp;You can also&nbsp;
-                            <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
+                            <Link href='/accountlist?type=individuals' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
                                 View Users
                             </Link>
                         </p>
@@ -93,7 +92,7 @@ export default function OrgList (){
                                 </Link> 
                                 <br/> 
                                 &nbsp;You can also&nbsp;
-                                <Link href='/accountlist?type=users' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
+                                <Link href='/accountlist?type=individuals' className={`${styles.u} ${styles.mrlg} ${styles.textwhite}`}>
                                     View Users
                                 </Link>
                             </p>

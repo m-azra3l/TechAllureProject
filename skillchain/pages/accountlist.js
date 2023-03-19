@@ -32,8 +32,8 @@ export default function AccountList() {
         </div>
       </div>
       <div className={styles.section} style={{ minHeight: 'calc(100vh - 80px)'}}>
-        {type === "users" && <UserList />}
-        {type === "organizations" && <OrgList />}
+        {type === "individuals" && <UserList/>}
+        {type === "organizations" && <OrgList/>}
       </div>
     </>
   );
