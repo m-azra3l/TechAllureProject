@@ -83,7 +83,7 @@ export default function Skills (){
     const ActiveItem = useCallback(() => {
         switch (active) {
           case -1:
-            return <h1 className='text-white'>No option selected</h1>;
+            return;
           default:
             return <Endorsement skillId={active} />;
         }
